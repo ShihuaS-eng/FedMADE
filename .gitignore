@@ -1,0 +1,24 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+.env
+.ipynb_checkpoints/
+.DS_Store
+._*
+
+# Data and large artifacts (never commit)
+data/
+*.pkl
+*.pth
+*.pt
+*.npy
+*.npz
+
+# Experiment outputs (keep folder placeholder)
+outputs/*
+!outputs/.gitkeep

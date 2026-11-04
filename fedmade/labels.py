@@ -1,0 +1,158 @@
+"""Feature columns, label maps, and 63-client victim device lists."""
+
+X_columns = [
+    "flow_duration",
+    "Header_Length",
+    "Protocol Type",
+    "Duration",
+    "Rate",
+    "Srate",
+    "Drate",
+    "fin_flag_number",
+    "syn_flag_number",
+    "rst_flag_number",
+    "psh_flag_number",
+    "ack_flag_number",
+    "ece_flag_number",
+    "cwr_flag_number",
+    "ack_count",
+    "syn_count",
+    "fin_count",
+    "urg_count",
+    "rst_count",
+    "HTTP",
+    "HTTPS",
+    "DNS",
+    "Telnet",
+    "SMTP",
+    "SSH",
+    "IRC",
+    "TCP",
+    "UDP",
+    "DHCP",
+    "ARP",
+    "ICMP",
+    "IPv",
+    "LLC",
+    "Tot sum",
+    "Min",
+    "Max",
+    "AVG",
+    "Std",
+    "Tot size",
+    "IAT",
+    "Number",
+    "Magnitue",
+    "Radius",
+    "Covariance",
+    "Variance",
+    "Weight",
+]
+
+CLASS_NAMES_7 = [
+    "Benign",
+    "DDoS_DoS",
+    "Mirai",
+    "Recon",
+    "Spoofing",
+    "Web",
+    "BruteForce",
+]
+
+# 33 attack types + benign
+dict_34_classes = {
+    "BenignTraffic": 0,
+    "DDoS-RSTFINFlood": 1,
+    "DDoS-PSHACK_Flood": 2,
+    "DDoS-SYN_Flood": 3,
+    "DDoS-UDP_Flood": 4,
+    "DDoS-TCP_Flood": 5,
+    "DDoS-ICMP_Flood": 6,
+    "DDoS-SynonymousIP_Flood": 7,
+    "DDoS-ACK_Fragmentation": 8,
+    "DDoS-UDP_Fragmentation": 9,
+    "DDoS-ICMP_Fragmentation": 10,
+    "DDoS-SlowLoris": 11,
+    "DDoS-HTTP_Flood": 12,
+    "DoS-UDP_Flood": 13,
+    "DoS-SYN_Flood": 14,
+    "DoS-TCP_Flood": 15,
+    "DoS-HTTP_Flood": 16,
+    "Mirai-greeth_flood": 17,
+    "Mirai-greip_flood": 18,
+    "Mirai-udpplain": 19,
+    "Recon-PingSweep": 20,
+    "Recon-OSScan": 21,
+    "Recon-PortScan": 22,
+    "VulnerabilityScan": 23,
+    "Recon-HostDiscovery": 24,
+    "DNS_Spoofing": 25,
+    "MITM-ArpSpoofing": 26,
+    "BrowserHijacking": 27,
+    "Backdoor_Malware": 28,
+    "XSS": 29,
+    "Uploading_Attack": 30,
+    "SqlInjection": 31,
+    "CommandInjection": 32,
+    "DictionaryBruteForce": 33,
+}
+
+# Merge DDoS + DoS into one class (matches Softmax(7) appendix / main configs)
+dict_7_classes = {
+    0: 0,
+    1: 1,
+    2: 1,
+    3: 1,
+    4: 1,
+    5: 1,
+    6: 1,
+    7: 1,
+    8: 1,
+    9: 1,
+    10: 1,
+    11: 1,
+    12: 1,
+    13: 1,
+    14: 1,
+    15: 1,
+    16: 1,
+    17: 2,
+    18: 2,
+    19: 2,
+    20: 3,
+    21: 3,
+    22: 3,
+    23: 3,
+    24: 3,
+    25: 4,
+    26: 4,
+    27: 5,
+    28: 5,
+    29: 5,
+    30: 5,
+    31: 5,
+    32: 5,
+    33: 6,
+}
+
+dict_2_classes = {k: (0 if k == 0 else 1) for k in range(34)}
+
+# Victim-style device lists for 7-class partition (63 clients)
+n_devices = 63
+ID_0 = list(range(n_devices))  # Benign
+ID_1 = list(range(n_devices))  # DDoS+DoS
+ID_2 = [i for i in range(n_devices) if i not in (38, 61)]  # Mirai
+ID_3 = list(range(n_devices))  # Recon
+ID_4 = [i for i in range(n_devices) if i not in (37, 38, 54, 60, 61)]  # Spoofing
+ID_5 = [43, 44, 45]  # Web
+ID_6 = [13, 15, 43, 44, 45]  # Brute Force
+
+devices_ID = {
+    0: ID_0,
+    1: ID_1,
+    2: ID_2,
+    3: ID_3,
+    4: ID_4,
+    5: ID_5,
+    6: ID_6,
+}

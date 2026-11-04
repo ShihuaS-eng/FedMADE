@@ -1,0 +1,25 @@
+# Default hyperparameters for the main multiclass CICIoT2023 experiment.
+# Put pickles under ./data or pass --data-dir /path/to/ciciot2023/analysis
+data_dir: ./data
+features_pkl: ciciot2023_features.pkl
+labels_pkl: ciciot2023_labels.pkl
+
+method: fedmade          # fedmade | fedavg
+model: cnn               # cnn | fcnn
+num_users: 63
+num_classes: 7
+input_dim: 46
+
+epochs: 30               # communication rounds
+frac: 1.0                # client sampling rate gamma
+local_epoch: 2
+local_bs: 128
+batch_size: 256
+lr: 0.0005
+
+train_size: 0.1          # use 0.8 for paper 80/20 split
+smote: true
+aux_per_class: 10        # FedMADE server auxiliary samples per class
+seed: 520
+
+output_dir: outputs
